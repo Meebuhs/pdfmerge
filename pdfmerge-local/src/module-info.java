@@ -4,4 +4,6 @@ module PDFMerge {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.base;
+    requires pdfbox;
+    requires commons.logging;
 }

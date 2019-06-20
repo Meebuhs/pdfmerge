@@ -8,6 +8,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pdfmerge.PDFMerger;
 
@@ -16,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class App extends Application {
-    private PDFMerger merger;
     private List<File> fileList;
     private FileDisplay fileDisplay;
     private Button mergeButton;
+    private Stage stage;
 
     public static void main(String[] args) {
         launch(args);
@@ -27,19 +28,19 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        merger = new PDFMerger();
         fileList = new ArrayList<>();
         fileDisplay = new FileDisplay(this);
         mergeButton = createMergeButton();
+        stage = primaryStage;
 
         BorderPane border = new BorderPane();
         border.setCenter(fileDisplay.getFileDisplay());
         border.setBottom(createToolBar(mergeButton));
 
         Scene scene = new Scene(border, 1280, 720);
-        primaryStage.setTitle("PDFMerge");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("PDFMerge");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private Button createMergeButton() {
@@ -63,11 +64,7 @@ public class App extends Application {
     }
 
     private void updateMergeButtonState() {
-        if (!fileList.isEmpty()) {
-            mergeButton.setDisable(false);
-        } else {
-            mergeButton.setDisable(true);
-        }
+        mergeButton.setDisable(fileList.isEmpty());
     }
 
     public void addFiles(List<File> files) {
@@ -77,10 +74,23 @@ public class App extends Application {
 
     private void mergeFiles() {
         if (!fileList.isEmpty()) {
-            if (merger.mergeFiles(fileList)) {
-                fileList.clear();
-                fileDisplay.clearFiles();
-                updateMergeButtonState();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName("mergedfile.pdf");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("PDF Document", "*.pdf")
+            );
+
+            File selectedFile = fileChooser.showSaveDialog(stage);
+            if (selectedFile != null) {
+                if (!selectedFile.getName().endsWith(".pdf")) {
+                    selectedFile = new File(selectedFile.getAbsolutePath().concat(".pdf"));
+                }
+
+                if (PDFMerger.mergeFiles(fileList, selectedFile)) {
+                    fileList.clear();
+                    fileDisplay.clearFiles();
+                    updateMergeButtonState();
+                }
             }
         }
     }
