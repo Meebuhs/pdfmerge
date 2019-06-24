@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FileDisplay } from 'containers/FileDisplay'
 import 'utils/reset.css'
 import styled from 'styled-components';
+import { FileDisplay } from 'containers/FileDisplay';
 
 const Container = styled.div`
     width: 100vw;
