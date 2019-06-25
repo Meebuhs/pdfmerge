@@ -2,10 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { DropArea } from 'components/DropArea';
 import { FileIcon } from 'components/FileIcon';
+import { ToolBar } from 'components/ToolBar';
 
 const FlexParent = styled.div`
     display: flex;
-    height: 100%;
+    flex-direction: column;
+    margin: auto;
+    
+    @media screen and (max-width: 400px) {
+        width: 400px;
+    }
+    
+    @media screen and (min-width: 400px) {
+        width: 100%;
+    }
+    
+    @media screen and (min-width: 1280px) {
+        width: 1280px;
+    }
 `;
 
 const FileContainer = styled.div`
@@ -64,6 +78,7 @@ export class FileDisplay extends React.Component {
                         />
                     </FileContainer>
                 </DropArea>
+                <ToolBar />
             </FlexParent>
         );
     }

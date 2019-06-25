@@ -7,6 +7,7 @@ import { FileDisplay } from 'containers/FileDisplay';
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
+    display: flex;
     background-color: #3c3c3c;
 `;
 

@@ -3,23 +3,10 @@ import styled from 'styled-components';
 import { DropOverlay } from 'components/DropOverlay';
 
 const Container = styled.div`
-    display: inline-block;
     border: 1px solid white;
     height 720px;
-    margin: auto;
+    width: 100%;
     position: relative;
-    
-    @media screen and (max-width: 400px) {
-        width: 400px;
-    }
-    
-    @media screen and (min-width: 400px) {
-        width: 100%;
-    }
-    
-    @media screen and (min-width: 1280px) {
-        width: 1280px;
-    }
 `;
 
 export class DropArea extends React.Component {
