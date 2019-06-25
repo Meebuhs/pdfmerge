@@ -82,6 +82,7 @@ export class DropArea extends React.Component {
                 onDrop={this.handleDrop}
             >
                 {(this.state.dragging) ? (<DropOverlay />) : null}
+                {this.props.children}
             </Container>
         );
     }
