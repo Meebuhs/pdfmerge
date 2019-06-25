@@ -14,6 +14,7 @@ const FileContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     align-content: flex-start;
+    overflow-y: scroll;
 `;
 
 class Files extends React.Component {
@@ -22,7 +23,6 @@ class Files extends React.Component {
     }
 
     render() {
-        console.log(this.props.files);
         return this.props.files.map(file => (
             <FileIcon
                 key={file.id}
