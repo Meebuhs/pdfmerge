@@ -43,7 +43,7 @@ export class FileDisplay extends React.Component {
 
     handleDrop = (files) => {
         let fileList = Array.from(this.state.files);
-        Array.from(files).map((file) => (file.name) ? fileList.push({
+        Array.from(files).map((file) => (file.type === "application/pdf") ? fileList.push({
             id: this.createId(file),
             file: file,
         }) : null);
